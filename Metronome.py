@@ -3,15 +3,13 @@ import winsound # for playing audio
 
 
 def playTick(): # first beat
-    Tick = 'C:/Users/brenj644/Desktop/Metronome/Tick.wav'
-    return winsound.PlaySound(Tick, winsound.SND_ASYNC)
+    return winsound.PlaySound('Tick.wav', winsound.SND_ASYNC) # ASYNC so program doesn't wait for audio to finish to continue
 
 def playTock(): # subsequent beats
-    Tock = 'C:/Users/brenj644/Desktop/Metronome/Tock.wav'
-    return winsound.PlaySound(Tock, winsound.SND_ASYNC)
+    return winsound.PlaySound('Tock.wav', winsound.SND_ASYNC) # ASYNC so program doesn't wait for audio to finish to continue
 
 def error(): # for errors
-    print('\nPlease enter a number greater than zero.')
+    print('\nPlease enter a WHOLE NUMBER greater than zero.')
 
 def function(): # main function
     while True:
@@ -49,26 +47,27 @@ def function(): # main function
         except ValueError: # if entered anything not a number
             error()
 
-    for i in range(measure): # play the metronome
-        n = 0 # for time signature
-        x = 0 # for measure
-        for j in range(time_sig):
-            if x <= measure:
-                if n == 0: # first beat
-                    print(n+1)
-                    n += 1
-                    playTick()
-                    time.sleep(bpm)
+    while True: # play metronome
+        for i in range(measure): # iterates through every measure
+            n = 0 # for time signature
+            x = 0 # for measure
+            for j in range(time_sig): # iterates through every beat
+                if x <= measure:
+                        if n == 0: # first beat
+                            print(n+1) # prints 1 instead of 0
+                            n += 1
+                            playTick()
+                            time.sleep(bpm)
 
-                elif n < time_sig and n > 0: # middle beats
-                    print(n+1)
-                    n += 1
-                    playTock()
-                    time.sleep(bpm)
+                        elif n < time_sig and n > 0: # middle beats
+                            print(n+1)
+                            n += 1
+                            playTock()
+                            time.sleep(bpm)
 
-                else: # last beat
-                    x += 1
-                    n = 0
+                        else: # last beat
+                            x += 1
+                            n = 0
 
     print(' ')
     function()
