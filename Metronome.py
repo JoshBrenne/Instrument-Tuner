@@ -48,26 +48,30 @@ def function(): # main function
             error()
 
     while True: # play metronome
-        for i in range(measure): # iterates through every measure
-            n = 0 # for time signature
-            x = 0 # for measure
-            for j in range(time_sig): # iterates through every beat
-                if x <= measure:
-                        if n == 0: # first beat
-                            print(n+1) # prints 1 instead of 0
-                            n += 1
-                            playTick()
-                            time.sleep(bpm)
+        print('\nPress Ctrl + C to restart the metronome.')
+        try:
+            for i in range(measure): # iterates through every measure
+                n = 0 # for time signature
+                x = 0 # for measure
+                for j in range(time_sig): # iterates through every beat
+                    if x <= measure:
+                            if n == 0: # first beat
+                                print(n+1) # prints 1 instead of 0
+                                n += 1
+                                playTick()
+                                time.sleep(bpm)
 
-                        elif n < time_sig and n > 0: # middle beats
-                            print(n+1)
-                            n += 1
-                            playTock()
-                            time.sleep(bpm)
+                            elif n < time_sig and n > 0: # middle beats
+                                print(n+1)
+                                n += 1
+                                playTock()
+                                time.sleep(bpm)
 
-                        else: # last beat
-                            x += 1
-                            n = 0
+                            else: # last beat
+                                x += 1
+                                n = 0
+        except KeyboardInterrupt:
+            break
 
     print(' ')
     function()
