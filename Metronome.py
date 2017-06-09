@@ -26,7 +26,7 @@ def function(): # main function
             error()
         except ValueError: # if entered anything not an integer
             error()
-        except EOFError: # if entered Ctrl + C
+        except KeyboardInterrupt: # if entered Ctrl + C
             print('')
             error()
 
@@ -39,7 +39,7 @@ def function(): # main function
                 break
         except ValueError: # if entered anything not an integer
             error()
-        except EOFError: # if entered Ctrl + C
+        except KeyboardInterrupt: # if entered Ctrl + C
             print('')
             error()
 
@@ -52,7 +52,7 @@ def function(): # main function
                 break
         except ValueError: # if entered anything not an integer
             error()
-        except EOFError: # if entered Ctrl + C
+        except KeyboardInterrupt: # if entered Ctrl + C
             print('')
             error()
 
