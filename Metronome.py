@@ -3,10 +3,10 @@ import winsound # for playing audio
 
 
 def playTick(): # first beat
-    return winsound.PlaySound('Tick.wav', winsound.SND_ASYNC) # ASYNC so program doesn't wait for audio to finish to continue
+    return winsound.PlaySound('Tick.wav', winsound.SND_ASYNC)
 
 def playTock(): # subsequent beats
-    return winsound.PlaySound('Tock.wav', winsound.SND_ASYNC) # ASYNC so program doesn't wait for audio to finish to continue
+    return winsound.PlaySound('Tock.wav', winsound.SND_ASYNC)
 
 def error(): # for errors
     print('\nPlease enter a WHOLE NUMBER greater than zero.')
@@ -17,14 +17,17 @@ def function(): # main function
             bpm = 60/int(input('\nHow many beats per MINUTE?: ')) # ask for bpm
             if bpm < 0: # if entered anything less than zero
                 error()
-            elif bpm < 60/350 and bpm > 0: # if entered more than 350, as anything faster than 350 results in audio glitches
-                bpm = 60/350
+            elif bpm < 60/300 and bpm > 0: # if entered more than 300; sets bpm to 300
+                bpm = 60/300
                 break
             else:
                 break
         except ZeroDivisionError: # if entered zero
             error()
-        except ValueError: # if entered anything not a number
+        except ValueError: # if entered anything not an integer
+            error()
+        except EOFError: # if entered Ctrl + C
+            print('')
             error()
 
     while True:
@@ -34,7 +37,10 @@ def function(): # main function
                 error()
             else:
                 break
-        except ValueError: # if entered anything not a number
+        except ValueError: # if entered anything not an integer
+            error()
+        except EOFError: # if entered Ctrl + C
+            print('')
             error()
 
     while True:
@@ -44,7 +50,10 @@ def function(): # main function
                 error()
             else:
                 break
-        except ValueError: # if entered anything not a number
+        except ValueError: # if entered anything not an integer
+            error()
+        except EOFError: # if entered Ctrl + C
+            print('')
             error()
 
     while True: # play metronome
@@ -55,26 +64,26 @@ def function(): # main function
                 x = 0 # for measure
                 for j in range(time_sig): # iterates through every beat
                     if x <= measure:
-                            if n == 0: # first beat
-                                print(n+1) # prints 1 instead of 0
-                                n += 1
-                                playTick()
-                                time.sleep(bpm)
+                        if n == 0: # first beat
+                            print(n+1) # prints 1 instead of 0
+                            n += 1
+                            playTick()
+                            time.sleep(bpm)
 
-                            elif n < time_sig and n > 0: # middle beats
-                                print(n+1)
-                                n += 1
-                                playTock()
-                                time.sleep(bpm)
+                        elif n < time_sig and n > 0: # middle beats
+                            print(n+1)
+                            n += 1
+                            playTock()
+                            time.sleep(bpm)
 
-                            else: # last beat
-                                x += 1
-                                n = 0
+                        else: # last beat
+                            x += 1
+                            n = 0
         except KeyboardInterrupt:
             break
 
-    print(' ')
-    function()
+        print('')
+        function()
 
 
 function()
