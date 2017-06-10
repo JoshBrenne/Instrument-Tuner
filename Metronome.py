@@ -80,7 +80,8 @@ def function(): # main function
                             x += 1
                             n = 0
         except KeyboardInterrupt:
-            break
+            print('')
+            function()
 
         print('')
         function()
