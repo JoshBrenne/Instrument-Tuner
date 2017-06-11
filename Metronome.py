@@ -9,25 +9,31 @@ def playTock(): # subsequent beats
     return winsound.PlaySound('Tock.wav', winsound.SND_ASYNC)
 
 def error(): # for errors
-    print('\nPlease enter a WHOLE NUMBER greater than zero.')
+    print('Please enter an integer greater than zero.')
 
 def function(): # main function
     while True:
         try:
-            bpm = 60/int(input('\nHow many beats per MINUTE?: ')) # ask for bpm
+            raw_bpm = input('\nHow many beats per MINUTE?: ') # ask for bpm
+            bpm = 60/int(raw_bpm) # sets bpm to time interval
             if bpm < 0: # if entered anything less than zero
                 error()
-            elif bpm < 60/300 and bpm > 0: # if entered more than 300; sets bpm to 300
-                bpm = 60/300
+            elif bpm < 60/252: # if entered more than 252; sets bpm to 252
+                print('Tempo too high; BPM set to 252.')
+                bpm = 60/252
+                break
+            elif bpm > 2: # if entered less than 30; sets bpm to 30
+                print('Tempo too low; BPM set to 30.')
+                bpm = 2
                 break
             else:
+                print('BPM set to ' + raw_bpm + '.')
                 break
         except ZeroDivisionError: # if entered zero
             error()
         except ValueError: # if entered anything not an integer
             error()
         except KeyboardInterrupt: # if entered Ctrl + C
-            print('')
             error()
 
     while True:
@@ -36,11 +42,11 @@ def function(): # main function
             if time_sig <= 0: # if entered anything less than or equal to zero
                 error()
             else:
+                print('Time signature set to ' + str(time_sig) + '/4.')
                 break
         except ValueError: # if entered anything not an integer
             error()
         except KeyboardInterrupt: # if entered Ctrl + C
-            print('')
             error()
 
     while True:
@@ -49,11 +55,12 @@ def function(): # main function
             if measure <= 0: # if entered anything less than or equal to zero
                 error()
             else:
+                print('Playing for ' + str(measure) + ' measures.')
+                time.sleep(1)
                 break
         except ValueError: # if entered anything not an integer
             error()
         except KeyboardInterrupt: # if entered Ctrl + C
-            print('')
             error()
 
     while True: # play metronome
@@ -61,30 +68,31 @@ def function(): # main function
         try:
             for i in range(measure): # iterates through every measure
                 n = 0 # for time signature
-                x = 0 # for measure
                 for j in range(time_sig): # iterates through every beat
-                    if x <= measure:
-                        if n == 0: # first beat
-                            print(n+1) # prints 1 instead of 0
-                            n += 1
-                            playTick()
-                            time.sleep(bpm)
+                    if n == 0: # first beat
+                        print(n+1) # prints 1 instead of 0
+                        n += 1
+                        playTick()
+                        time.sleep(bpm)
 
-                        elif n < time_sig and n > 0: # middle beats
-                            print(n+1)
-                            n += 1
-                            playTock()
-                            time.sleep(bpm)
+                    elif n < time_sig and n > 0: # middle beats
+                        print(n+1)
+                        n += 1
+                        playTock()
+                        time.sleep(bpm)
 
-                        else: # last beat
-                            x += 1
-                            n = 0
+                    else: # last beat
+                        n = 0
         except KeyboardInterrupt:
-            print('')
-            function()
+            pass
 
         print('')
         function()
 
 
+# intro
+print('This program will let you configure and play a metronome.')
+time.sleep(2.25)
+print('That is, a device used by musicians that marks time at a selected rate by giving a regular tick.')
+time.sleep(3.75)
 function()
