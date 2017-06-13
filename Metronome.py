@@ -56,7 +56,7 @@ def function(): # main function
                 error()
             else:
                 print('Playing for ' + str(measure) + ' measures.')
-                time.sleep(1)
+                time.sleep(1) # so metronome doesn't start immediately
                 break
         except ValueError: # if entered anything not an integer
             error()
@@ -76,14 +76,14 @@ def function(): # main function
                         time.sleep(bpm)
 
                     elif n < time_sig and n > 0: # middle beats
-                        print(n+1)
+                        print(n+1) # prints 1 instead of 0
                         n += 1
                         playTock()
                         time.sleep(bpm)
 
                     else: # last beat
                         n = 0
-        except KeyboardInterrupt:
+        except KeyboardInterrupt: # if entered Ctrl + C
             pass
 
         print('')
